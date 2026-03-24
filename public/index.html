@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskFlow Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Todo / Task Manager</p>
+          <p class="designer-credit">Designed by Md Qamar Hashmi</p>
+          <h1>Plan work. Track progress. Finish with clarity.</h1>
+          <p class="hero-copy">
+            A simple full-stack task manager built with a lightweight frontend,
+            Node.js backend, and MongoDB storage.
+          </p>
+        </div>
+        <div class="hero-status">
+          <div class="status-card">
+            <span class="status-label">Stack</span>
+            <strong>HTML + Node.js + MongoDB</strong>
+          </div>
+          <div class="status-card">
+            <span class="status-label">API</span>
+            <strong id="api-status">Checking connection...</strong>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-layout">
+        <section class="panel form-panel">
+          <div class="panel-heading">
+            <p class="panel-kicker">New Task</p>
+            <h2>Add something important</h2>
+          </div>
+
+          <form id="task-form" class="task-form">
+            <label>
+              <span>Title</span>
+              <input id="title" name="title" type="text" maxlength="120" required />
+            </label>
+
+            <label>
+              <span>Description</span>
+              <textarea id="description" name="description" rows="4" maxlength="500"></textarea>
+            </label>
+
+            <div class="field-grid">
+              <label>
+                <span>Status</span>
+                <select id="status" name="status">
+                  <option value="todo">To Do</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="done">Done</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Priority</span>
+                <select id="priority" name="priority">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              <span>Due Date</span>
+              <input id="dueDate" name="dueDate" type="date" />
+            </label>
+
+            <button type="submit" class="primary-btn">Create Task</button>
+          </form>
+        </section>
+
+        <section class="panel tasks-panel">
+          <div class="panel-heading tasks-head">
+            <div>
+              <p class="panel-kicker">Tasks</p>
+              <h2>Your current board</h2>
+            </div>
+            <div class="task-stats" id="task-stats">0 tasks</div>
+          </div>
+
+          <div id="message" class="message" hidden></div>
+          <div id="task-list" class="task-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
