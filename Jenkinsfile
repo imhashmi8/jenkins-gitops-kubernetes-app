@@ -1,7 +1,7 @@
 pipeline{
     agent any
      environment{
-        NAME= "TODO-APP"
+        NAME= "todo-app"
         VERSION= "${env.BUILD_ID}-${env.GIT_COMMIT}"
         IMAGE_REPO= "hashmi111"
         APP_GIT_REPO= "jenkins-gitops-kubernetes-app"
