@@ -207,32 +207,19 @@ This setup currently relies on Jenkins-managed credentials:
 
 The MongoDB secret is intentionally not stored in Jenkins for deployment automation in this version because it is handled manually inside the cluster.
 
-## Suggested Screenshot Section
+## Screenshots
 
-The README should ideally include screenshots of the Argo CD portal to make the workflow easier to understand visually.
+### Argo CD Application
 
-Recommended screenshots to add:
+The screenshot below shows the Argo CD application after Jenkins updated the deployment repository and Argo CD synced the latest manifests successfully.
 
-- Argo CD portal dashboard
-- Argo CD application details page for `todo-app`
-- successful sync status after Jenkins updates the deployment repo
-
-Suggested file names if you add them later:
-
-- `docs/images/argocd-portal.png`
-- `docs/images/argocd-application.png`
-
-Then you can embed them in this README like:
-
-```md
-## Argo CD Portal
-![Argo CD Portal](docs/images/argocd-portal.png)
-
-## Argo CD Application
 ![Argo CD Application](docs/images/argocd-application.png)
-```
 
-At the moment, those image files are not present in this repository, so they are documented here as the next step rather than linked as broken images.
+### Running Application
+
+The screenshot below shows the Todo application running after deployment to Kubernetes.
+
+![Todo App UI](docs/images/todo-app-ui.png)
 
 ## End-to-End Delivery Steps
 
@@ -251,4 +238,3 @@ At the moment, those image files are not present in this repository, so they are
 ## Summary
 
 This project demonstrates a clean GitOps-oriented CI/CD workflow using Jenkins, Docker, GitHub, Kubernetes, and Argo CD. It also shows a good security decision: keeping deployment secrets out of Git and creating them manually in the cluster instead of exposing sensitive data in repository YAML.
-
