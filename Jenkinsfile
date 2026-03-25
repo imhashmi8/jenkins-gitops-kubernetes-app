@@ -6,7 +6,6 @@ pipeline{
         IMAGE_REPO= "hashmi111"
         APP_GIT_REPO= "jenkins-gitops-kubernetes-app"
         K8S_DEPLOYMENT_GIT_REPO= "jenkins-gitops-kubernetes-deployment"
-        ARGOCD_TOKEN= credentials("argocd-token")
         GITHUB_TOKEN= credentials("github-token")
     }
 
