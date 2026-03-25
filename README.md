@@ -2,6 +2,12 @@
 
 This project showcases a practical CI/CD and GitOps workflow built around a containerized Node.js application. It demonstrates how source code moves from a GitHub push to a Docker image build in Jenkins, then into a Kubernetes deployment managed through Argo CD.
 
+## Project Flow
+
+The diagram below summarizes the delivery flow used in this project, from application code changes to GitOps-based deployment in Kubernetes.
+
+![CI/CD with GitOps Flow](docs/images/gitops-flow.png)
+
 From a recruiter’s point of view, this project highlights hands-on experience with:
 
 - Jenkins pipeline creation and troubleshooting
