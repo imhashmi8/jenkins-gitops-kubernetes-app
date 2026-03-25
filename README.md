@@ -243,4 +243,4 @@ The screenshot below shows the Todo application running after deployment to Kube
 
 ## Summary
 
-This project demonstrates a clean GitOps-oriented CI/CD workflow using Jenkins, Docker, GitHub, Kubernetes, and Argo CD. It also shows a good security decision: keeping deployment secrets out of Git and creating them manually in the cluster instead of exposing sensitive data in repository YAML.
+This project demonstrates a clean GitOps-oriented CI/CD workflow using Jenkins, Docker, GitHub, Kubernetes, and Argo CD. It also shows a good security decision: keeping deployment secrets out of Git and creating them manually in the cluster instead of exposing sensitive data in repository YAML. 
