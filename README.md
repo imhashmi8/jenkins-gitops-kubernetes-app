@@ -81,6 +81,95 @@ Jenkins is configured to:
 
 This keeps CI in Jenkins while leaving cluster reconciliation to Argo CD.
 
+## Jenkins Configuration
+
+If you want to reproduce this setup from scratch, configure Jenkins with the same assumptions used in the [`Jenkinsfile`](/Users/mdqamarhashmi/Documents/Qamar-Files/Projects/jenkins-gitops-kubernetes-app/Jenkinsfile).
+
+### Jenkins Prerequisites
+
+Before creating the pipeline job, make sure Jenkins has:
+
+- Git installed on the Jenkins host
+- Docker installed and accessible to the Jenkins user
+- outbound access to GitHub and Docker Hub
+- the recommended plugins for:
+  Git
+  GitHub Integration
+  Pipeline
+  Docker Pipeline
+  Credentials Binding
+
+### Jenkins Credentials
+
+Create these credentials in Jenkins before running the pipeline:
+
+- `docker-hub`
+  Type: `Username with password`
+  Purpose: authenticate Jenkins to Docker Hub for image pushes
+
+- `github-token`
+  Type: `Secret text`
+  Purpose: allow Jenkins to push manifest updates to the deployment repository
+
+These names should match the credential IDs referenced in the pipeline:
+
+- `docker-hub`
+- `github-token`
+
+### Create the Jenkins Pipeline Job
+
+1. Open Jenkins and click `New Item`.
+2. Enter a job name such as `todo-app-cicd`.
+3. Choose `Pipeline` and create the job.
+4. In the job configuration, enable `GitHub project` if you want the repository URL visible in Jenkins.
+5. Under `Build Triggers`, enable `GitHub hook trigger for GITScm polling`.
+6. Under `Pipeline`, choose `Pipeline script from SCM`.
+7. Select `Git` as the SCM.
+8. Set the repository URL to the application repository:
+   `https://github.com/imhashmi8/jenkins-gitops-kubernetes-app.git`
+9. Select the branch to build, for example `*/main`.
+10. Keep the script path as `Jenkinsfile`.
+11. Save the job and run `Build Now` once to validate the setup.
+
+### GitHub Webhook Setup
+
+To trigger the pipeline automatically on every push:
+
+1. Open the application repository in GitHub.
+2. Go to `Settings` > `Webhooks`.
+3. Add a webhook that points to:
+   `http://<your-jenkins-server>/github-webhook/`
+4. Set the content type to `application/json`.
+5. Choose `Just the push event`.
+6. Save the webhook and push a test commit.
+
+### Pipeline Behavior in This Project
+
+This Jenkins pipeline currently expects:
+
+- the Docker image repository owner to be `hashmi111`
+- the application image name to be `todo-app`
+- the deployment repository name to be `jenkins-gitops-kubernetes-deployment`
+- the Kubernetes manifest path inside that repo to be `todo-app-k8s-manifest/deployment.yaml`
+
+During execution Jenkins:
+
+1. builds a Docker image tagged with `${BUILD_ID}-${GIT_COMMIT}`
+2. pushes the image to Docker Hub
+3. clones or pulls the deployment repository
+4. updates the image tag inside `deployment.yaml`
+5. commits and pushes the manifest change back to GitHub
+
+### Optional Jenkins Global Configuration Checks
+
+If the pipeline does not work on the first run, verify these Jenkins settings:
+
+- Docker commands can run without permission issues for the Jenkins user
+- the Jenkins instance URL is set correctly under system configuration
+- GitHub webhook requests can reach port `8080` on the Jenkins server
+- the `main` branch exists in both repositories
+- the deployment repository allows push access with the configured GitHub token
+
 ### 3. Deployment Repository
 
 The deployment repository stores the Kubernetes manifests used by Argo CD, including:
@@ -214,6 +303,12 @@ This setup currently relies on Jenkins-managed credentials:
 The MongoDB secret is intentionally not stored in Jenkins for deployment automation in this version because it is handled manually inside the cluster.
 
 ## Screenshots
+
+### Jenkins Pipeline Job
+
+The screenshot below shows the Jenkins pipeline job page after successful runs, including the `todo-app-cicd` job status and build history.
+
+![Jenkins Pipeline Job](docs/images/jenkins-job-status.png)
 
 ### Argo CD Application
 
